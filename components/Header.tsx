@@ -1,13 +1,33 @@
-import { HeaderWrapper} from "../src/styles/HeaderStyle";
+// Header.tsx
+import { HeaderWrapper } from "../src/styles/HeaderStyle";
+import Link from "next/link";
 
+interface HeaderProps {
+  isAddProductPage?: boolean;
+}
 
-const Header: React.FC = () => {
+const Header: React.FC<HeaderProps> = ({ isAddProductPage = false }) => {
   return (
     <HeaderWrapper>
-      <h1>Products List</h1>
+      <h1>{isAddProductPage ? "Add Product" : "Products List"}</h1>
       <div>
-        <button>ADD</button>
-        <button>MASS DELETE</button>
+        {isAddProductPage ? (
+          <>
+            <Link href="/">
+              <button>Save</button>
+            </Link>
+            <Link href="/add-product">
+              <button>Cancel</button>
+            </Link>
+          </>
+        ) : (
+          <>
+            <Link href="/add-product">
+              <button>ADD</button>
+            </Link>
+            <button>MASS DELETE</button>
+          </>
+        )}
       </div>
     </HeaderWrapper>
   );
